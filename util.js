@@ -4,7 +4,6 @@ function getNode(nodeId, nodes) {
 }
 
 function getConnectedHandles(nodeId, handleName, nodes, edges) {
-
     return edges
         .filter(edge =>
             (edge.target == nodeId && edge.targetHandle == handleName) ||
@@ -96,4 +95,13 @@ export class Observable {
     fire(...args) {
         this.subscribers.forEach(subscriber => subscriber(...args))
     }
+}
+
+export function prepEdge(edge) {
+    edge.sourceHandle = parseHandleId(edge.sourceHandle)
+    edge.targetHandle = parseHandleId(edge.targetHandle)
+}
+
+function parseHandleId(id) {
+    return id.match(/\<([\w\W]*?)\>(.*)/)?.[2] ?? id
 }

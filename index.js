@@ -1,4 +1,4 @@
-import { prepNode, setupNode, Observable } from "./util.js"
+import { prepNode, setupNode, Observable, prepEdge } from "./util.js"
 
 export function runFlow({
     nodes,
@@ -22,11 +22,12 @@ export function runFlow({
 
 
 function prepGraph(nodes, edges, nodeTypes) {
+    edges.forEach(
+        edge => prepEdge(edge)
+    )
     nodes.forEach(
         node => prepNode(node, nodeTypes[node.type], nodes, edges)
     )
 }
 
-
-
-export { default as NodeTypes } from "./nodes/index.js"
+export { loadNodeTypes } from "./nodes/index.js"
