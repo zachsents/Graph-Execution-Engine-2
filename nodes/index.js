@@ -5,8 +5,6 @@ import UtilNodes from "./util.js"
 import DebugNodes from "./debug.js"
 import MiscNodes from "./misc.js"
 
-import { nodes as FirebaseNodes } from "../../firebase/index.js"
-
 export default {
     ...MathNodes,
     ...TimingNodes,
@@ -14,5 +12,4 @@ export default {
     ...UtilNodes,
     ...DebugNodes,
     ...MiscNodes,
-    ...FirebaseNodes,
 }

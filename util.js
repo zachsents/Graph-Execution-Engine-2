@@ -1,5 +1,3 @@
-import NodeTypes from "./nodes/index.js"
-
 
 function getNode(nodeId, nodes) {
     return nodes.find(node => node.id == nodeId)
@@ -23,21 +21,18 @@ function getConnectedHandles(nodeId, handleName, nodes, edges) {
         )
 }
 
-export function setupNode(node, setupObservable) {
-    const nodeType = NodeTypes[node.type]
+export function setupNode(node, nodeType, setupObservable) {
     nodeType.setup?.bind(node)(setupObservable)
 }
 
-export function prepNode(node, nodes, edges) {
-    prepValueSources(node, nodes, edges)
-    prepValueTargets(node, nodes, edges)
-    prepSignalTargets(node, nodes, edges)
-    prepSignalSources(node, nodes, edges)
+export function prepNode(node, nodeType, nodes, edges) {
+    prepValueSources(node, nodeType, nodes, edges)
+    prepValueTargets(node, nodeType, nodes, edges)
+    prepSignalTargets(node, nodeType, nodes, edges)
+    prepSignalSources(node, nodeType, nodes, edges)
 }
 
-export function prepValueSources(node, nodes, edges) {
-    const nodeType = NodeTypes[node.type]
-
+export function prepValueSources(node, nodeType, nodes, edges) {
     // create getters for value sources
     nodeType?.sources?.values &&
         Object.entries(nodeType.sources.values).forEach(([handleName, valueSourceData]) => {
@@ -49,9 +44,7 @@ export function prepValueSources(node, nodes, edges) {
         })
 }
 
-export function prepValueTargets(node, nodes, edges) {
-    const nodeType = NodeTypes[node.type]
-
+export function prepValueTargets(node, nodeType, nodes, edges) {
     // create getters for value targets
     nodeType?.targets?.values &&
         Object.entries(nodeType.targets.values).forEach(([handleName, valueTargetData]) => {
@@ -68,9 +61,7 @@ export function prepValueTargets(node, nodes, edges) {
         })
 }
 
-export function prepSignalTargets(node, nodes, edges) {
-    const nodeType = NodeTypes[node.type]
-
+export function prepSignalTargets(node, nodeType, nodes, edges) {
     // create actions for signal targets
     nodeType?.targets?.signals &&
         Object.entries(nodeType.targets.signals).forEach(([handleName, signalTargetData]) => {
@@ -78,9 +69,7 @@ export function prepSignalTargets(node, nodes, edges) {
         })
 }
 
-export function prepSignalSources(node, nodes, edges) {
-    const nodeType = NodeTypes[node.type]
-
+export function prepSignalSources(node, nodeType, nodes, edges) {
     // create actions for signal sources
     nodeType?.sources?.signals &&
         Object.entries(nodeType.sources.signals).forEach(([handleName, signalSourceData]) => {
