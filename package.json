@@ -1,6 +1,6 @@
 {
-  "name": "execution2",
-  "version": "1.0.0",
+  "name": "graph-execution-engine-2",
+  "version": "2.0.0",
   "description": "",
   "main": "index.js",
   "directories": {
